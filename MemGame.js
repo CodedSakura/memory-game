@@ -27,7 +27,17 @@ class MemoryGame {
   match(index) {
     if (this.selected === index) return MemoryGame.MATCH_STATE.CANCEL;
     if (this.revealed[index]) return MemoryGame.MATCH_STATE.CANCEL;
-    // TODO: check for match
+    const a = findInPairs(this.selected);
+    const b = findInPairs(index);
+    if (a === b) {
+      this.revealed[this.selected] = false;
+      this.selected = -1;
+      return true;
+    } else {
+      this.revealed[index] = true;
+      this.selected = -1;
+      return false;
+    }
   }
 }
 
