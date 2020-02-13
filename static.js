@@ -30,4 +30,4 @@ const pairs = [
   ["t", "t"],
   ["u", "u"],
   ["v", "v"],
-].shuffle();
+];
