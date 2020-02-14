@@ -7,3 +7,15 @@ Array.prototype.shuffle = function() {
   }
   return this;
 };
+
+function findInPairs(item) {
+  let out;
+  for (let i = 0; i < pairs.length; i++) {
+    if (pairs[i].includes(item)) {
+      if (out !== undefined)
+        throw new Error("appears multiple times in pairs");
+      out = i;
+    }
+  }
+  return out;
+}
