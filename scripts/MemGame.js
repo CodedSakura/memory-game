@@ -16,33 +16,33 @@ class MemoryGame {
   }
 
   select(index) {
-    if (this.selected > -1) return this.match(index);
-    if (index > this.entries.length) return false;
-    if (this.revealed[index]) return false;
+    if (index > this.entries.length) throw new Error("index should not be larger than x * y");
+    if (this.revealed[index]) return MemoryGame.RESULT_STATE.CANCEL;
+    if (this.selected > -1) return this.#match(index);
     this.revealed[index] = true;
     this.selected = index;
-    return true;
+    return MemoryGame.RESULT_STATE.CONTINUE;
   }
 
-  match(index) {
-    if (this.selected === index) return MemoryGame.MATCH_STATE.CANCEL;
-    if (this.revealed[index]) return MemoryGame.MATCH_STATE.CANCEL;
+  #match(index) {
+    if (this.selected === index) return MemoryGame.RESULT_STATE.CANCEL;
     const a = findInPairs(this.selected);
     const b = findInPairs(index);
     if (a === b) {
-      this.revealed[this.selected] = false;
-      this.selected = -1;
-      return true;
-    } else {
       this.revealed[index] = true;
       this.selected = -1;
-      return false;
+      return MemoryGame.RESULT_STATE.MATCH;
+    } else {
+      this.revealed[this.selected] = false;
+      this.selected = -1;
+      return MemoryGame.RESULT_STATE.FAIL;
     }
   }
 }
 
-MemoryGame.MATCH_STATE = {
+MemoryGame.RESULT_STATE = {
   CANCEL: 0,
-  NO_MATCH: 1,
-  MATCH: 2
+  CONTINUE: 1,
+  FAIL: 2,
+  MATCH: 3,
 };
