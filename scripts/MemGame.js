@@ -18,16 +18,16 @@ class MemoryGame {
   select(index) {
     if (index > this.entries.length) throw new Error("index should not be larger than x * y");
     if (this.revealed[index]) return MemoryGame.RESULT_STATE.CANCEL;
-    if (this.selected > -1) return this.#match(index);
+    if (this.selected > -1) return this._match(index);
     this.revealed[index] = true;
     this.selected = index;
     return MemoryGame.RESULT_STATE.CONTINUE;
   }
 
-  #match(index) {
+  _match(index) {
     if (this.selected === index) return MemoryGame.RESULT_STATE.CANCEL;
-    const a = findInPairs(this.selected);
-    const b = findInPairs(index);
+    const a = findInPairs(this.entries[this.selected]);
+    const b = findInPairs(this.entries[index]);
     if (a === b) {
       this.revealed[index] = true;
       this.selected = -1;
