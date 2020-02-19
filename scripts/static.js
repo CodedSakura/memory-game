@@ -31,3 +31,13 @@ const pairs = [
   ["u", "u"],
   ["v", "v"],
 ];
+
+const CLASS_NAMES = {
+  ROW: "__mem_row",
+  TILE: "__mem_tile",
+  HIDDEN: "__mem_hidden",
+  SHOWN: "__mem_shown",
+  ANIMATIONS: {
+    CANCEL: "__mem_anim_cancel"
+  }
+};

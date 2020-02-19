@@ -8,39 +8,39 @@ window.addEventListener("load", () => {
   function click({target}) {
     if (running) return;
     const index = tiles.indexOf(target);
-    // if (!index) return;
-    target.classList.remove("__anim-cancel", "__anim-");
+    if (index < 0) return;
+    target.classList.remove(...Object.values(CLASS_NAMES.ANIMATIONS));
     target.getBoundingClientRect();
 
     const last = tiles[game.selected];
     switch (game.select(index)) {
       case MemoryGame.RESULT_STATE.CANCEL:
-        target.classList.add("__anim-cancel");
+        target.classList.add(CLASS_NAMES.ANIMATIONS.CANCEL);
         break;
       case MemoryGame.RESULT_STATE.CONTINUE:
-        target.classList.remove("hidden");
+        target.classList.remove(CLASS_NAMES.HIDDEN);
         target.innerText = game.entries[index];
-        target.classList.add("shown");
+        target.classList.add(CLASS_NAMES.SHOWN);
         break;
       case MemoryGame.RESULT_STATE.FAIL:
-        target.classList.remove("hidden");
+        target.classList.remove(CLASS_NAMES.HIDDEN);
         target.innerText = game.entries[index];
-        target.classList.add("shown");
+        target.classList.add(CLASS_NAMES.SHOWN);
         running = true;
-        console.log(setTimeout(() => {
+        setTimeout(() => {
           running = false;
-          target.classList.remove("shown");
-          last.classList.remove("shown");
+          target.classList.remove(CLASS_NAMES.SHOWN);
+          last.classList.remove(CLASS_NAMES.SHOWN);
           target.innerText = "[?]";
           last.innerText = "[?]";
-          target.classList.add("hidden");
-          last.classList.add("hidden")
-        }, 1000));
+          target.classList.add(CLASS_NAMES.HIDDEN);
+          last.classList.add(CLASS_NAMES.HIDDEN);
+        }, 1000);
         break;
       case MemoryGame.RESULT_STATE.MATCH:
-        target.classList.remove("hidden");
+        target.classList.remove(CLASS_NAMES.HIDDEN);
         target.innerText = game.entries[index];
-        target.classList.add("shown");
+        target.classList.add(CLASS_NAMES.SHOWN);
         break;
       default:
         throw new Error("unknown return state from game.select")
@@ -49,11 +49,11 @@ window.addEventListener("load", () => {
 
   for (let y = 0; y < size.y; y++) {
     const row = document.createElement("div");
-    row.className = "__row";
+    row.className = CLASS_NAMES.ROW;
     for (let x = 0; x < size.x; x++) {
       const child = document.createElement("div");
       child.appendChild(document.createTextNode("[?]"));
-      child.className = "__tile hidden";
+      child.className = [CLASS_NAMES.TILE, CLASS_NAMES.HIDDEN].join(" ");
       child.addEventListener("click", click);
       tiles.push(child);
       row.appendChild(child);
