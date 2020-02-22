@@ -11,6 +11,10 @@ Array.prototype.flat = function () {
   return [].concat(...this);
 };
 
+Object.values = function (obj) {
+  return Object.keys(obj).map(k => obj[k]);
+};
+
 function findInPairs(item) {
   let out;
   for (let i = 0; i < pairs.length; i++) {
