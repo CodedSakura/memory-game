@@ -37,7 +37,11 @@ const CLASS_NAMES = {
   TILE: "__mem_tile",
   HIDDEN: "__mem_hidden",
   SHOWN: "__mem_shown",
+  FRONT: "__mem_tile-front",
+  BACK: "__mem_tile-back",
   ANIMATIONS: {
     CANCEL: "__mem_anim_cancel"
   }
 };
+
+const WinAnimTimeout = 1000; // ms

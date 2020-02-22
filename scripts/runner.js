@@ -6,11 +6,12 @@ window.addEventListener("load", () => {
   let running = false;
 
   function click({target}) {
+    target = target.parentElement;
     if (running) return;
     const index = tiles.indexOf(target);
     if (index < 0) return;
     target.classList.remove(...Object.values(CLASS_NAMES.ANIMATIONS));
-    target.getBoundingClientRect();
+    target.getBoundingClientRect(); // update DOM
 
     const last = tiles[game.selected];
     switch (game.select(index)) {
@@ -19,27 +20,27 @@ window.addEventListener("load", () => {
         break;
       case MemoryGame.RESULT_STATE.CONTINUE:
         target.classList.remove(CLASS_NAMES.HIDDEN);
-        target.innerText = game.entries[index];
+        target.getElementsByClassName(CLASS_NAMES.FRONT)[0].innerText = game.entries[index];
         target.classList.add(CLASS_NAMES.SHOWN);
         break;
       case MemoryGame.RESULT_STATE.FAIL:
         target.classList.remove(CLASS_NAMES.HIDDEN);
-        target.innerText = game.entries[index];
+        target.getElementsByClassName(CLASS_NAMES.FRONT)[0].innerText = game.entries[index];
         target.classList.add(CLASS_NAMES.SHOWN);
         running = true;
         setTimeout(() => {
           running = false;
           target.classList.remove(CLASS_NAMES.SHOWN);
           last.classList.remove(CLASS_NAMES.SHOWN);
-          target.innerText = "[?]";
-          last.innerText = "[?]";
+          target.getElementsByClassName(CLASS_NAMES.FRONT)[0].innerText = "";
+          last.getElementsByClassName(CLASS_NAMES.FRONT)[0].innerText = "";
           target.classList.add(CLASS_NAMES.HIDDEN);
           last.classList.add(CLASS_NAMES.HIDDEN);
-        }, 1000);
+        }, WinAnimTimeout);
         break;
       case MemoryGame.RESULT_STATE.MATCH:
         target.classList.remove(CLASS_NAMES.HIDDEN);
-        target.innerText = game.entries[index];
+        target.getElementsByClassName(CLASS_NAMES.FRONT)[0].innerText = game.entries[index];
         target.classList.add(CLASS_NAMES.SHOWN);
         break;
       default:
@@ -51,12 +52,17 @@ window.addEventListener("load", () => {
     const row = document.createElement("div");
     row.className = CLASS_NAMES.ROW;
     for (let x = 0; x < size.x; x++) {
-      const child = document.createElement("div");
-      child.appendChild(document.createTextNode("[?]"));
-      child.className = [CLASS_NAMES.TILE, CLASS_NAMES.HIDDEN].join(" ");
-      child.addEventListener("click", click);
-      tiles.push(child);
-      row.appendChild(child);
+      const tile = document.createElement("div");
+      tile.className = [CLASS_NAMES.TILE, CLASS_NAMES.HIDDEN].join(" ");
+      tile.addEventListener("click", click);
+      const front = document.createElement("div");
+      front.className = CLASS_NAMES.FRONT;
+      const back = document.createElement("div");
+      back.className = CLASS_NAMES.BACK;
+      tile.appendChild(front);
+      tile.appendChild(back);
+      row.appendChild(tile);
+      tiles.push(tile);
     }
     container.appendChild(row);
   }
