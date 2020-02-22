@@ -4,11 +4,17 @@ class MemoryGame {
   entries = [];
   size = {};
 
+  static RESULT_STATE = {
+    CANCEL: 0,
+    CONTINUE: 1,
+    FAIL: 2,
+    MATCH: 3,
+  };
+
   constructor(size) {
     if (!size.hasOwnProperty("x") || !size.hasOwnProperty("y")) throw new Error("size must be an object with properties x and y");
     if (typeof size.x !== "number" || typeof size.y !== "number") throw new Error("properties x and y mst be numbers");
     if (size.x <= 0 || size.y <= 0) throw  new Error("x and y have to be positive");
-    if (!Number.isInteger(size.x) || !Number.isInteger(size.y)) throw new Error("x and y have to be integers");
     if ((size.x * size.y) % 2 === 1) throw new Error("x * y must be even");
     this.size = size;
     this.entries = pairs.shuffle().slice(0, size.x*size.y/2).flat().shuffle();
@@ -39,10 +45,3 @@ class MemoryGame {
     }
   }
 }
-
-MemoryGame.RESULT_STATE = {
-  CANCEL: 0,
-  CONTINUE: 1,
-  FAIL: 2,
-  MATCH: 3,
-};

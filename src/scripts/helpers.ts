@@ -7,11 +7,14 @@ Array.prototype.shuffle = function() {
   }
   return this;
 };
+Array.prototype.flat = function () {
+  return [].concat(...this);
+};
 
 function findInPairs(item) {
   let out;
   for (let i = 0; i < pairs.length; i++) {
-    if (pairs[i].includes(item)) {
+    if (pairs[i].indexOf(item) > -1) {
       if (out !== undefined)
         throw new Error("appears multiple times in pairs");
       out = i;
