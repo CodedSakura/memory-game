@@ -4,6 +4,7 @@ window.addEventListener("load", () => {
   const container = document.getElementById("game");
   const tiles = [];
   let running = false;
+  let moveCounter = 0;
 
   function click({target}) {
     target = target.parentElement;
@@ -19,11 +20,13 @@ window.addEventListener("load", () => {
         target.classList.add(CLASS_NAMES.ANIMATIONS.CANCEL);
         break;
       case MemoryGame.RESULT_STATE.CONTINUE:
+        moveCounter++;
         target.classList.remove(CLASS_NAMES.HIDDEN);
         target.getElementsByClassName(CLASS_NAMES.FRONT)[0].innerText = game.entries[index];
         target.classList.add(CLASS_NAMES.SHOWN);
         break;
       case MemoryGame.RESULT_STATE.FAIL:
+        moveCounter++;
         target.classList.remove(CLASS_NAMES.HIDDEN);
         target.getElementsByClassName(CLASS_NAMES.FRONT)[0].innerText = game.entries[index];
         target.classList.add(CLASS_NAMES.SHOWN);
@@ -39,11 +42,12 @@ window.addEventListener("load", () => {
         }, WinAnimTimeout);
         break;
       case MemoryGame.RESULT_STATE.MATCH:
+        moveCounter++;
         target.classList.remove(CLASS_NAMES.HIDDEN);
         target.getElementsByClassName(CLASS_NAMES.FRONT)[0].innerText = game.entries[index];
         target.classList.add(CLASS_NAMES.SHOWN);
         if (game.won) {
-          // pass
+          console.log(moveCounter)
         }
         break;
       default:
