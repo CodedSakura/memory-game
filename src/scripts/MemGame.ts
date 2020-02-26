@@ -3,6 +3,7 @@ class MemoryGame {
   revealed = [];
   entries = [];
   size = {};
+  won = false;
 
   static RESULT_STATE = {
     CANCEL: 0,
@@ -37,6 +38,9 @@ class MemoryGame {
     if (a === b) {
       this.revealed[index] = true;
       this.selected = -1;
+      if (this.revealed.every(v => v)) {
+        this.won = true;
+      }
       return MemoryGame.RESULT_STATE.MATCH;
     } else {
       this.revealed[this.selected] = false;
