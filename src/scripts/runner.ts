@@ -42,6 +42,9 @@ window.addEventListener("load", () => {
         target.classList.remove(CLASS_NAMES.HIDDEN);
         target.getElementsByClassName(CLASS_NAMES.FRONT)[0].innerText = game.entries[index];
         target.classList.add(CLASS_NAMES.SHOWN);
+        if (game.won) {
+          // pass
+        }
         break;
       default:
         throw new Error("unknown return state from game.select")
