@@ -4,6 +4,7 @@ window.addEventListener("load", () => {
   const container = document.getElementById("game");
   const tiles = [];
   let running = false;
+  let startTime;
 
   function click({target}) {
     target = target.parentElement;
@@ -19,6 +20,7 @@ window.addEventListener("load", () => {
         target.classList.add(CLASS_NAMES.ANIMATIONS.CANCEL);
         break;
       case MemoryGame.RESULT_STATE.CONTINUE:
+        if (!startTime) startTime = Date.now();
         target.classList.remove(CLASS_NAMES.HIDDEN);
         target.getElementsByClassName(CLASS_NAMES.FRONT)[0].innerText = game.entries[index];
         target.classList.add(CLASS_NAMES.SHOWN);
@@ -43,7 +45,7 @@ window.addEventListener("load", () => {
         target.getElementsByClassName(CLASS_NAMES.FRONT)[0].innerText = game.entries[index];
         target.classList.add(CLASS_NAMES.SHOWN);
         if (game.won) {
-          // pass
+          console.log(Date.now() - startTime);
         }
         break;
       default:
