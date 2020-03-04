@@ -40,8 +40,10 @@ const CLASS_NAMES = {
   FRONT: "__mem_tile-front",
   BACK: "__mem_tile-back",
   ANIMATIONS: {
-    CANCEL: "__mem_anim_cancel"
+    CANCEL: "__mem_anim_cancel",
+    UNMATCH: "__mem_anim_unmatch",
+    MATCH: "__mem_anim_match"
   }
 };
 
-const WinAnimTimeout = 1000; // ms
+const WinAnimTimeout = 750; // ms

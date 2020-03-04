@@ -53,4 +53,40 @@
   &_shown {
     transform: rotateY(0);
   }
+
+  &_anim {
+    &_cancel {
+      animation: __MemAnimCancel .5s ease;
+    }
+    &_unmatch {
+      animation: __MemAnimUnmatch .2s .3s ease-in-out;
+    }
+    &_match {
+      animation: __MemAnimMatch .6s .3s ease;
+    }
+  }
+}
+
+@keyframes __MemAnimCancel {
+  0%   { transform: rotateZ(0); }
+  25%  { transform: rotateZ(5deg); }
+  75%  { transform: rotateZ(-5deg); }
+  100% { transform: rotateZ(0); }
+}
+
+@keyframes __MemAnimUnmatch {
+  0%  { transform: rotateZ(0); }
+  30% { transform: rotateZ(10deg); }
+  80% { transform: rotateZ(-10deg); }
+  90% { transform: rotateZ(0); }
+}
+
+@keyframes __MemAnimMatch {
+  0%   { transform: scale3d(1, 1, 1); }
+  30%  { transform: scale3d(1.15, 0.85, 1); }
+  40%  { transform: scale3d(0.85, 1.15, 1); }
+  50%  { transform: scale3d(1.07, 0.93, 1); }
+  65%  { transform: scale3d(0.98, 1.02, 1); }
+  75%  { transform: scale3d(1.02, 0.98, 1); }
+  100% { transform: scale3d(1, 1, 1); }
 }
