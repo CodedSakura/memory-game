@@ -1,11 +1,19 @@
 window.addEventListener("load", () => {
-  const size = {x: 4, y: 6};
-  const game = new MemoryGame(size);
-  const container = document.getElementById("game");
-  const tiles = [];
-  let running = false;
-  let startTime;
-  let moveCounter = 0;
+  const container = document.getElementById(ID_NAMES.MAIN);
+  const statsElems = {
+    time: document.getElementById(ID_NAMES.STATS.TIME),
+    moves: document.getElementById(ID_NAMES.STATS.MOVES)
+  };
+  const stats = {
+    time: {
+      start: 0,
+      end: 0
+    },
+    moves: 0
+  };
+  let game: MemoryGame;
+  let tiles: HTMLDivElement[];
+  let running: boolean;
 
   function click({target}) {
     target = target.parentElement;
@@ -21,14 +29,14 @@ window.addEventListener("load", () => {
         target.classList.add(CLASS_NAMES.ANIMATIONS.CANCEL);
         break;
       case MemoryGame.RESULT_STATE.CONTINUE:
-        if (!startTime) startTime = Date.now();
-        moveCounter++;
+        if (!stats.time.start) stats.time.start = Date.now();
+        incrMoves();
         target.classList.remove(CLASS_NAMES.HIDDEN);
         target.getElementsByClassName(CLASS_NAMES.FRONT)[0].innerText = game.entries[index];
         target.classList.add(CLASS_NAMES.SHOWN);
         break;
       case MemoryGame.RESULT_STATE.FAIL:
-        moveCounter++;
+        incrMoves();
         target.classList.remove(CLASS_NAMES.HIDDEN);
         target.getElementsByClassName(CLASS_NAMES.FRONT)[0].innerText = game.entries[index];
         target.classList.add(CLASS_NAMES.SHOWN);
@@ -40,21 +48,20 @@ window.addEventListener("load", () => {
           target.classList.remove(CLASS_NAMES.SHOWN);
           last.classList.remove(CLASS_NAMES.SHOWN);
           target.getElementsByClassName(CLASS_NAMES.FRONT)[0].innerText = "";
-          last.getElementsByClassName(CLASS_NAMES.FRONT)[0].innerText = "";
+          (last.getElementsByClassName(CLASS_NAMES.FRONT)[0] as HTMLDivElement).innerText = "";
           target.classList.add(CLASS_NAMES.HIDDEN);
           last.classList.add(CLASS_NAMES.HIDDEN);
         }, WinAnimTimeout);
         break;
       case MemoryGame.RESULT_STATE.MATCH:
-        moveCounter++;
+        incrMoves();
         target.classList.remove(CLASS_NAMES.HIDDEN);
         target.getElementsByClassName(CLASS_NAMES.FRONT)[0].innerText = game.entries[index];
         target.classList.add(CLASS_NAMES.SHOWN);
         target.classList.add(CLASS_NAMES.ANIMATIONS.MATCH);
         last.classList.add(CLASS_NAMES.ANIMATIONS.MATCH);
         if (game.won) {
-          console.log(Date.now() - startTime);
-          console.log(moveCounter)
+          stats.time.end = Date.now();
         }
         break;
       default:
@@ -62,22 +69,46 @@ window.addEventListener("load", () => {
     }
   }
 
-  for (let y = 0; y < size.y; y++) {
-    const row = document.createElement("div");
-    row.className = CLASS_NAMES.ROW;
-    for (let x = 0; x < size.x; x++) {
-      const tile = document.createElement("div");
-      tile.className = [CLASS_NAMES.TILE, CLASS_NAMES.HIDDEN].join(" ");
-      tile.addEventListener("click", click);
-      const front = document.createElement("div");
-      front.className = CLASS_NAMES.FRONT;
-      const back = document.createElement("div");
-      back.className = CLASS_NAMES.BACK;
-      tile.appendChild(front);
-      tile.appendChild(back);
-      row.appendChild(tile);
-      tiles.push(tile);
+  function generateField(size: {x: number, y: number}) {
+    game = new MemoryGame(size);
+    tiles = [];
+    running = false;
+    stats.time = {start: 0, end: 0};
+    resetMoves();
+    while (container.lastChild) container.removeChild(container.lastChild);
+    for (let y = 0; y < size.y; y++) {
+      const row = document.createElement("div");
+      row.className = CLASS_NAMES.ROW;
+      for (let x = 0; x < size.x; x++) {
+        const tile = document.createElement("div");
+        tile.className = [CLASS_NAMES.TILE, CLASS_NAMES.HIDDEN].join(" ");
+        tile.addEventListener("click", click);
+        const front = document.createElement("div");
+        front.className = CLASS_NAMES.FRONT;
+        const back = document.createElement("div");
+        back.className = CLASS_NAMES.BACK;
+        tile.appendChild(front);
+        tile.appendChild(back);
+        row.appendChild(tile);
+        tiles.push(tile);
+      }
+      container.appendChild(row);
     }
-    container.appendChild(row);
   }
+
+  function updateTime() {
+    statsElems.time.innerText = msToString(
+      stats.time.end ? stats.time.end-stats.time.start :
+        stats.time.start ? Date.now() - stats.time.start : 0);
+  }
+  function incrMoves() {
+    statsElems.moves.innerText = `${++stats.moves}`;
+  }
+  function resetMoves() {
+    stats.moves = 0;
+    statsElems.moves.innerText = `${stats.moves}`;
+  }
+
+  generateField(getDefaultSize());
+  setInterval(updateTime, TimeUpdateSpeed)
 });

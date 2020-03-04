@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress ALL -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,6 +12,17 @@
     <script src="scripts/runner.js"></script>
 </head>
 <body>
-<div id="game"></div>
+<div>
+    <label for="mem_width">width</label>
+    <input type="number" value="4" id="mem_width">
+    <label for="mem_height">height</label>
+    <input type="number" value="6" id="mem_height">
+    <input type="button" value="generate" id="mem_generate">
+</div>
+<div id="mem_game"></div>
+<div>
+    time: <span id="mem_time">0:00</span><br/>
+    moves: <span id="mem_moves">0</span>
+</div>
 </body>
 </html>

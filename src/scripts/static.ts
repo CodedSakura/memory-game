@@ -32,6 +32,8 @@ const pairs = [
   ["v", "v"],
 ];
 
+const getDefaultSize = () => ({x: 4, y: 6});
+
 const CLASS_NAMES = {
   ROW: "__mem_row",
   TILE: "__mem_tile",
@@ -46,4 +48,18 @@ const CLASS_NAMES = {
   }
 };
 
+const ID_NAMES = {
+  MAIN: "mem_game",
+  SIZE: {
+    WIDTH: "mem_width",
+    HEIGHT: "mem_height",
+    GENERATE: "mem_generate"
+  },
+  STATS: {
+    TIME: "mem_time",
+    MOVES: "mem_moves"
+  }
+};
+
 const WinAnimTimeout = 750; // ms
+const TimeUpdateSpeed = 500; // ms

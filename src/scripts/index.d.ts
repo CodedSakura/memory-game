@@ -6,3 +6,7 @@ declare interface Array<T> {
 declare interface Object {
   values(obj: object): Array<any>
 }
+
+declare interface String {
+  padStart(targetLength: number, padString?: string)
+}

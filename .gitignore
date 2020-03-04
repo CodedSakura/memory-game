@@ -1,5 +1,4 @@
 dist/**/*
-!dist/index.html
 
 yarn-error.log
 
