@@ -1,27 +1,27 @@
 window.addEventListener("load", () => {
   const container = document.getElementById(ID_NAMES.MAIN);
-  const statsElems = {
-    time: document.getElementById(ID_NAMES.STATS.TIME),
-    moves: document.getElementById(ID_NAMES.STATS.MOVES)
-  };
   const stats = {
     time: {
       start: 0,
       end: 0
     },
-    moves: 0
+    moves: 0,
+    running: false,
+    elems: {
+      time: document.getElementById(ID_NAMES.STATS.TIME),
+      moves: document.getElementById(ID_NAMES.STATS.MOVES)
+    }
   };
   let game: MemoryGame;
   let tiles: HTMLDivElement[];
-  let running: boolean;
 
   function click({target}) {
     target = target.parentElement;
-    if (running) return;
+    if (stats.running) return;
     const index = tiles.indexOf(target);
     if (index < 0) return;
     target.classList.remove(...Object.values(CLASS_NAMES.ANIMATIONS));
-    target.getBoundingClientRect(); // update DOM
+    target.getBoundingClientRect(); // force DOM update
 
     const last = tiles[game.selected];
     switch (game.select(index)) {
@@ -42,9 +42,9 @@ window.addEventListener("load", () => {
         target.classList.add(CLASS_NAMES.SHOWN);
         target.classList.add(CLASS_NAMES.ANIMATIONS.UNMATCH);
         last.classList.add(CLASS_NAMES.ANIMATIONS.UNMATCH);
-        running = true;
+        stats.running = true;
         setTimeout(() => {
-          running = false;
+          stats.running = false;
           target.classList.remove(CLASS_NAMES.SHOWN);
           last.classList.remove(CLASS_NAMES.SHOWN);
           target.getElementsByClassName(CLASS_NAMES.FRONT)[0].innerText = "";
@@ -72,7 +72,7 @@ window.addEventListener("load", () => {
   function generateField(size: {x: number, y: number}) {
     game = new MemoryGame(size);
     tiles = [];
-    running = false;
+    stats.running = false;
     stats.time = {start: 0, end: 0};
     resetMoves();
     while (container.lastChild) container.removeChild(container.lastChild);
@@ -97,18 +97,25 @@ window.addEventListener("load", () => {
   }
 
   function updateTime() {
-    statsElems.time.innerText = msToString(
+    stats.elems.time.innerText = msToString(
       stats.time.end ? stats.time.end-stats.time.start :
         stats.time.start ? Date.now() - stats.time.start : 0);
   }
   function incrMoves() {
-    statsElems.moves.innerText = `${++stats.moves}`;
+    stats.elems.moves.innerText = `${++stats.moves}`;
   }
   function resetMoves() {
     stats.moves = 0;
-    statsElems.moves.innerText = `${stats.moves}`;
+    stats.elems.moves.innerText = `${stats.moves}`;
   }
 
   generateField(getDefaultSize());
-  setInterval(updateTime, TimeUpdateSpeed)
+  setInterval(updateTime, TimeUpdateSpeed);
+
+  document.getElementById(ID_NAMES.SIZE.GENERATE).addEventListener("click", () => {
+    generateField({
+      x: parseInt((document.getElementById(ID_NAMES.SIZE.WIDTH) as HTMLInputElement).value),
+      y: parseInt((document.getElementById(ID_NAMES.SIZE.HEIGHT) as HTMLInputElement).value)
+    });
+  });
 });
