@@ -61,5 +61,5 @@ const ID_NAMES = {
   }
 };
 
-const WinAnimTimeout = 750; // ms
-const TimeUpdateSpeed = 500; // ms
+const WIN_ANIM_TIMEOUT = 750; // ms
+const TIME_UPDATE_SPEED = 500; // ms

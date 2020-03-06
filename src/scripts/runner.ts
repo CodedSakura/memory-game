@@ -51,7 +51,7 @@ window.addEventListener("load", () => {
           (last.getElementsByClassName(CLASS_NAMES.FRONT)[0] as HTMLDivElement).innerText = "";
           target.classList.add(CLASS_NAMES.HIDDEN);
           last.classList.add(CLASS_NAMES.HIDDEN);
-        }, WinAnimTimeout);
+        }, WIN_ANIM_TIMEOUT);
         break;
       case MemoryGame.RESULT_STATE.MATCH:
         incrMoves();
@@ -110,12 +110,12 @@ window.addEventListener("load", () => {
   }
 
   generateField(getDefaultSize());
-  setInterval(updateTime, TimeUpdateSpeed);
+  setInterval(updateTime, TIME_UPDATE_SPEED);
 
   document.getElementById(ID_NAMES.SIZE.GENERATE).addEventListener("click", () => {
-    generateField({
-      x: parseInt((document.getElementById(ID_NAMES.SIZE.WIDTH) as HTMLInputElement).value),
-      y: parseInt((document.getElementById(ID_NAMES.SIZE.HEIGHT) as HTMLInputElement).value)
-    });
+    let widthE = document.getElementById(ID_NAMES.SIZE.WIDTH) as HTMLInputElement;
+    let heightE = document.getElementById(ID_NAMES.SIZE.HEIGHT) as HTMLInputElement;
+    let wv = parseInt(widthE.value), hv = parseInt(heightE.value);
+    generateField({x: wv, y: hv});
   });
 });
