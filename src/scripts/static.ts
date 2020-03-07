@@ -32,7 +32,7 @@ const PAIRS = [
   ["v", "v"],
 ];
 
-const getDefaultSize = () => ({x: 4, y: 6});
+const getDefaultSize = () => ({width: 4, height: 6});
 
 const CLASS_NAMES = {
   ROW: "__mem_row",
@@ -85,5 +85,5 @@ enum AlertType {
 }
 
 const ALERT_EVENT = "mem-alert";
-const ALERT_TIMEOUT = 1500; // ms
+const ALERT_TIMEOUT = 3000; // ms
 const ALERT_REMOVE = 400; // ms

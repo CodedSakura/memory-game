@@ -69,17 +69,17 @@ window.addEventListener("load", () => {
     }
   }
 
-  function generateField(size: {x: number, y: number}) {
+  function generateField(size: {width: number, height: number}) {
     game = new MemoryGame(size);
     tiles = [];
     stats.running = false;
     stats.time = {start: 0, end: 0};
     resetMoves();
     while (container.lastChild) container.removeChild(container.lastChild);
-    for (let y = 0; y < size.y; y++) {
+    for (let y = 0; y < size.height; y++) {
       const row = document.createElement("div");
       row.className = CLASS_NAMES.ROW;
-      for (let x = 0; x < size.x; x++) {
+      for (let x = 0; x < size.width; x++) {
         const tile = document.createElement("div");
         tile.className = [CLASS_NAMES.TILE, CLASS_NAMES.HIDDEN].join(" ");
         tile.addEventListener("click", click);
@@ -116,12 +116,15 @@ window.addEventListener("load", () => {
     let widthE = document.getElementById(ID_NAMES.SIZE.WIDTH) as HTMLInputElement;
     let heightE = document.getElementById(ID_NAMES.SIZE.HEIGHT) as HTMLInputElement;
     let wv = parseInt(widthE.value), hv = parseInt(heightE.value);
-    generateField({x: wv, y: hv});
+    try {
+      generateField({width: wv, height: hv});
+    } catch (e) {
+      document.dispatchEvent(new CustomEvent(ALERT_EVENT, {detail: {type: AlertType.ERROR, message: e.message}}));
+    }
   });
 });
 
 document.addEventListener(ALERT_EVENT, ({detail: {type, message, head}}: AlertEvent) => {
-  console.log("yeet?");
   const alertCont = document.getElementById(ID_NAMES.ALERT_CONTAINER);
   const alert = document.createElement("div");
   alert.classList.add(CLASS_NAMES.ALERT.COLORS[type]);

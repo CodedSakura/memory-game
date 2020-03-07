@@ -13,12 +13,12 @@ class MemoryGame {
   };
 
   constructor(size) {
-    if (!size.hasOwnProperty("x") || !size.hasOwnProperty("y")) throw new Error("size must be an object with properties x and y");
-    if (typeof size.x !== "number" || typeof size.y !== "number") throw new Error("properties x and y mst be numbers");
-    if (size.x <= 0 || size.y <= 0) throw  new Error("x and y have to be positive");
-    if ((size.x * size.y) % 2 === 1) throw new Error("x * y must be even");
+    if (!size.hasOwnProperty("width") || !size.hasOwnProperty("height")) throw new Error("Size must be an object with properties 'width' and 'height'");
+    if (typeof size.width !== "number" || typeof size.height !== "number") throw new Error("Properties 'width' and 'height' mst be numbers");
+    if (size.width <= 0 || size.height <= 0) throw  new Error("Width and height must be positive!");
+    if ((size.width * size.height) % 2 === 1) throw new Error("Width and height can't both be odd!");
     this.size = size;
-    this.entries = PAIRS.shuffle().slice(0, size.x*size.y/2).flat().shuffle();
+    this.entries = PAIRS.shuffle().slice(0, size.width*size.height/2).flat().shuffle();
     this.revealed = new Array(this.entries.length).fill(false);
   }
 
