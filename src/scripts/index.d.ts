@@ -10,3 +10,11 @@ declare interface Object {
 declare interface String {
   padStart(targetLength: number, padString?: string)
 }
+
+interface AlertEvent extends Event {
+  readonly detail: {
+    type: AlertType,
+    message: string,
+    head?: string
+  }
+}

@@ -18,7 +18,7 @@ class MemoryGame {
     if (size.x <= 0 || size.y <= 0) throw  new Error("x and y have to be positive");
     if ((size.x * size.y) % 2 === 1) throw new Error("x * y must be even");
     this.size = size;
-    this.entries = pairs.shuffle().slice(0, size.x*size.y/2).flat().shuffle();
+    this.entries = PAIRS.shuffle().slice(0, size.x*size.y/2).flat().shuffle();
     this.revealed = new Array(this.entries.length).fill(false);
   }
 

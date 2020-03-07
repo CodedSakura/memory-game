@@ -33,8 +33,8 @@ if (!String.prototype.padStart) {
 
 function findInPairs(item) {
   let out;
-  for (let i = 0; i < pairs.length; i++) {
-    if (pairs[i].indexOf(item) > -1) {
+  for (let i = 0; i < PAIRS.length; i++) {
+    if (PAIRS[i].indexOf(item) > -1) {
       if (out !== undefined)
         throw new Error("appears multiple times in pairs");
       out = i;

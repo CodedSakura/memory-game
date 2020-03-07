@@ -119,3 +119,24 @@ window.addEventListener("load", () => {
     generateField({x: wv, y: hv});
   });
 });
+
+document.addEventListener(ALERT_EVENT, ({detail: {type, message, head}}: AlertEvent) => {
+  console.log("yeet?");
+  const alertCont = document.getElementById(ID_NAMES.ALERT_CONTAINER);
+  const alert = document.createElement("div");
+  alert.classList.add(CLASS_NAMES.ALERT.COLORS[type]);
+  alert.classList.add(CLASS_NAMES.ALERT.ANIMATIONS.ENTER);
+  if (head) {
+    const aHead = document.createElement("div");
+    aHead.classList.add(CLASS_NAMES.ALERT.HEAD);
+    aHead.appendChild(document.createTextNode(head));
+  }
+  alert.appendChild(document.createTextNode(message));
+  alertCont.prepend(alert);
+  setTimeout(() => {
+    alert.classList.add(CLASS_NAMES.ALERT.ANIMATIONS.EXIT);
+    setTimeout(() => {
+      alertCont.removeChild(alert);
+    }, ALERT_REMOVE);
+  }, ALERT_TIMEOUT);
+});
