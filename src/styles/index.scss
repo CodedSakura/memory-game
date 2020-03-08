@@ -1,6 +1,12 @@
 body {
-    margin: 0;
-    background: #212121;
-    color: #FFFFFFCC;
-    font-family: Roboto, sans-serif;
+  background: #212121;
+  color: #FFFFFFCC;
+  font-family: Roboto, sans-serif;
+}
+
+input {
+  background-color: #212121;
+  color: #FFFFFFCC;
+  border-radius: 3px;
+  border: 2px solid #00000044;
 }

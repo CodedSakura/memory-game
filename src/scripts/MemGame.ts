@@ -17,6 +17,7 @@ class MemoryGame {
     if (typeof size.width !== "number" || typeof size.height !== "number") throw new Error("Properties 'width' and 'height' mst be numbers");
     if (size.width <= 0 || size.height <= 0) throw  new Error("Width and height must be positive!");
     if ((size.width * size.height) % 2 === 1) throw new Error("Width and height can't both be odd!");
+    if (size.x * size.y / 2 > pairs.length) throw new Error("not enough pairs for this grid size");
     this.size = size;
     this.entries = PAIRS.shuffle().slice(0, size.width*size.height/2).flat().shuffle();
     this.revealed = new Array(this.entries.length).fill(false);

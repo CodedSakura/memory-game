@@ -58,7 +58,8 @@ const CLASS_NAMES = {
       ENTER: "__mem_alert_anim-enter",
       EXIT:  "__mem_alert_anim-exit"
     }
-  }
+  },
+  VERTICAL_LAYOUT: "__mem_vertical-layout"
 };
 
 const ID_NAMES = {

@@ -13,17 +13,19 @@
     <script src="scripts/runner.js"></script>
 </head>
 <body>
-<div>
-    <label for="mem_width">width</label>
-    <input type="number" min="1" max="10" value="4" id="mem_width">
-    <label for="mem_height">height</label>
-    <input type="number" min="1" max="10" value="6" id="mem_height">
-    <input type="button" value="generate" id="mem_generate">
-</div>
-<div id="mem_game"></div>
-<div>
-    time: <span id="mem_time">0:00</span><br/>
-    moves: <span id="mem_moves">0</span>
+<div class="__mem_outer-cont">
+    <div class="__mem_option-panel">
+        <label for="mem_width">width</label>
+        <input type="number" min="1" max="10" value="4" id="mem_width">
+        <label for="mem_height">height</label>
+        <input type="number" min="1" max="10" value="6" id="mem_height">
+        <input type="button" value="generate" id="mem_generate">
+    </div>
+    <div id="mem_game" class="__mem_inner-cont"></div>
+    <div class="__mem_stats-panel">
+        time: <span id="mem_time">0:00</span><br/>
+        moves: <span id="mem_moves">0</span>
+    </div>
 </div>
 <div class="__mem_alert-cont" id="mem_alert_cont"></div>
 </body>
