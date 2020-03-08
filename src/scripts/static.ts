@@ -45,7 +45,8 @@ const CLASS_NAMES = {
     CANCEL: "__mem_anim_cancel",
     UNMATCH: "__mem_anim_unmatch",
     MATCH: "__mem_anim_match"
-  }
+  },
+  VERTICAL_LAYOUT: "__mem_vertical-layout"
 };
 
 const ID_NAMES = {

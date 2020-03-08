@@ -76,12 +76,18 @@ window.addEventListener("load", () => {
     stats.time = {start: 0, end: 0};
     resetMoves();
     while (container.lastChild) container.removeChild(container.lastChild);
+    const {innerWidth, innerHeight} = window;
+    if (size.x/size.y > innerWidth/innerHeight) container.parentElement.classList.add(CLASS_NAMES.VERTICAL_LAYOUT);
+    else container.parentElement.classList.remove(CLASS_NAMES.VERTICAL_LAYOUT);
+    const tileSize = Math.min((innerWidth-22)/size.x-6, (innerHeight-22)/size.y-6) << 0;
     for (let y = 0; y < size.y; y++) {
       const row = document.createElement("div");
       row.className = CLASS_NAMES.ROW;
       for (let x = 0; x < size.x; x++) {
         const tile = document.createElement("div");
         tile.className = [CLASS_NAMES.TILE, CLASS_NAMES.HIDDEN].join(" ");
+        tile.style.width  = `${tileSize}px`;
+        tile.style.height = `${tileSize}px`;
         tile.addEventListener("click", click);
         const front = document.createElement("div");
         front.className = CLASS_NAMES.FRONT;

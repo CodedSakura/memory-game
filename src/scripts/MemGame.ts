@@ -17,6 +17,7 @@ class MemoryGame {
     if (typeof size.x !== "number" || typeof size.y !== "number") throw new Error("properties x and y mst be numbers");
     if (size.x <= 0 || size.y <= 0) throw  new Error("x and y have to be positive");
     if ((size.x * size.y) % 2 === 1) throw new Error("x * y must be even");
+    if (size.x * size.y / 2 > pairs.length) throw new Error("not enough pairs for this grid size");
     this.size = size;
     this.entries = pairs.shuffle().slice(0, size.x*size.y/2).flat().shuffle();
     this.revealed = new Array(this.entries.length).fill(false);

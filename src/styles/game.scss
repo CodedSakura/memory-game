@@ -1,19 +1,36 @@
-#mem_game {
-  display: flex;
-  flex-direction: column;
-  perspective: 3000px;
-}
-
 .__mem {
+  &_outer-cont {
+    display: flex;
+    flex-direction: row;
+    > * {
+      flex: 1 0;
+    }
+
+    &.__mem_vertical-layout {
+      flex-direction: column;
+    }
+  }
+
+  &_option-panel {}
+  &_stats-panel {}
+
+  &_inner-cont {
+    display: flex;
+    flex-direction: column;
+    perspective: 3000px;
+    padding: 3px;
+  }
+
   &_row {
     display: flex;
     flex-direction: row;
+    justify-content: center;
   }
 
   &_tile {
     width: 60px;
     height: 60px;
-    margin: 4px;
+    margin: 3px;
     font-size: 20px;
 
     user-select: none;
