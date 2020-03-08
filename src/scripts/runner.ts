@@ -77,9 +77,9 @@ window.addEventListener("load", () => {
     resetMoves();
     while (container.lastChild) container.removeChild(container.lastChild);
     const {innerWidth, innerHeight} = window;
-    if (size.x/size.y > innerWidth/innerHeight) container.parentElement.classList.add(CLASS_NAMES.VERTICAL_LAYOUT);
+    if (size.width/size.height > innerWidth/innerHeight) container.parentElement.classList.add(CLASS_NAMES.VERTICAL_LAYOUT);
     else container.parentElement.classList.remove(CLASS_NAMES.VERTICAL_LAYOUT);
-    const tileSize = Math.min((innerWidth-22)/size.x-6, (innerHeight-22)/size.y-6) << 0;
+    const tileSize = Math.min((innerWidth-22)/size.width-6, (innerHeight-22)/size.height-6) << 0;
     for (let y = 0; y < size.height; y++) {
       const row = document.createElement("div");
       row.className = CLASS_NAMES.ROW;
