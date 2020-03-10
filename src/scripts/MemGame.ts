@@ -1,7 +1,7 @@
 class MemoryGame {
   selected = -1;
   revealed = [];
-  entries = [];
+  entries: Tile[] = [];
   size = {width: 0, height: 0};
   won = false;
 
@@ -19,7 +19,7 @@ class MemoryGame {
     if ((size.width * size.height) % 2 === 1) throw new Error("Width and height can't both be odd!");
     if (size.width * size.height / 2 > PAIRS.length) throw new Error("Not enough pairs for this grid size");
     this.size = size;
-    this.entries = PAIRS.shuffle().slice(0, size.width*size.height/2).flat().shuffle();
+    this.entries = new TileGenerator(size.width*size.height, 6, 0, {flip: false, rotate: false}).tiles.shuffle();
     this.revealed = new Array(this.entries.length).fill(false);
   }
 
@@ -34,9 +34,7 @@ class MemoryGame {
 
   _match(index) {
     if (this.selected === index) return MemoryGame.RESULT_STATE.CANCEL;
-    const a = findInPairs(this.entries[this.selected]);
-    const b = findInPairs(this.entries[index]);
-    if (a === b) {
+    if (this.entries[this.selected].matches(this.entries[index])) {
       this.revealed[index] = true;
       this.selected = -1;
       if (this.revealed.every(v => v)) {

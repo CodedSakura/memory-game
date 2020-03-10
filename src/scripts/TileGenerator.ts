@@ -29,8 +29,8 @@ class TileC0 implements Tile {
     return 0;
   }
 
-  matches(that: Tile): boolean {
-    return false;
+  matches(that: TileC0): boolean {
+    return this.data.every((v, i) => v === that.data[i]);
   }
 
   getSVG(): SVGSVGElement {
@@ -57,7 +57,6 @@ class TileGenerator {
   tiles: Tile[] = [];
   props: {size: number, complexity: number, rotation: boolean, flipping: boolean};
 
-
   constructor(amount: number, size: number, complexity: number, modifiers: {rotate: boolean, flip: boolean}) {
     if (typeof amount !== "number") throw new Error("Amount is not a number");
     if (!Number.isInteger(amount)) throw new Error("Amount must be an integer");
@@ -79,8 +78,10 @@ class TileGenerator {
       rotation: modifiers.rotate,
       flipping: modifiers.flip
     };
-    for (let i = 0; i < size / 2; i++)
+    console.log(`generating ${amount} tiles`);
+    for (let i = 0; i < amount / 2; i++)
       this.tiles = this.tiles.concat(this.generateUniqueTilePair());
+    console.log(`generated ${this.tiles.length} tiles`)
   }
 
   private generateUniqueTilePair() {
@@ -88,12 +89,10 @@ class TileGenerator {
     switch (complexity) {
       case 0:
         let tileA, tileB;
-        console.log("[1]");
         do {
           tileA = new TileC0(size);
           tileB = tileA.generateInverted();
         } while (!this.isUnique(tileA, tileB));
-        console.log(tileA);
         return [tileA, tileB];
       default:
         throw new Error("unknown complexity level");

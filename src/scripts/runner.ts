@@ -32,13 +32,13 @@ window.addEventListener("load", () => {
         if (!stats.time.start) stats.time.start = Date.now();
         incrMoves();
         target.classList.remove(CLASS_NAMES.HIDDEN);
-        target.getElementsByClassName(CLASS_NAMES.FRONT)[0].innerText = game.entries[index];
+        target.getElementsByClassName(CLASS_NAMES.FRONT)[0].appendChild(game.entries[index].getSVG());
         target.classList.add(CLASS_NAMES.SHOWN);
         break;
       case MemoryGame.RESULT_STATE.FAIL:
         incrMoves();
         target.classList.remove(CLASS_NAMES.HIDDEN);
-        target.getElementsByClassName(CLASS_NAMES.FRONT)[0].innerText = game.entries[index];
+        target.getElementsByClassName(CLASS_NAMES.FRONT)[0].appendChild(game.entries[index].getSVG());
         target.classList.add(CLASS_NAMES.SHOWN);
         target.classList.add(CLASS_NAMES.ANIMATIONS.UNMATCH);
         last.classList.add(CLASS_NAMES.ANIMATIONS.UNMATCH);
@@ -47,16 +47,16 @@ window.addEventListener("load", () => {
           stats.running = false;
           target.classList.remove(CLASS_NAMES.SHOWN);
           last.classList.remove(CLASS_NAMES.SHOWN);
-          target.getElementsByClassName(CLASS_NAMES.FRONT)[0].innerText = "";
-          (last.getElementsByClassName(CLASS_NAMES.FRONT)[0] as HTMLDivElement).innerText = "";
+          target.getElementsByClassName(CLASS_NAMES.FRONT)[0].clearChildren();
+          (last.getElementsByClassName(CLASS_NAMES.FRONT)[0] as Element).clearChildren();
           target.classList.add(CLASS_NAMES.HIDDEN);
           last.classList.add(CLASS_NAMES.HIDDEN);
-        }, WIN_ANIM_TIMEOUT);
+        }, FAIL_ANIM_TIMEOUT);
         break;
       case MemoryGame.RESULT_STATE.MATCH:
         incrMoves();
         target.classList.remove(CLASS_NAMES.HIDDEN);
-        target.getElementsByClassName(CLASS_NAMES.FRONT)[0].innerText = game.entries[index];
+        target.getElementsByClassName(CLASS_NAMES.FRONT)[0].appendChild(game.entries[index].getSVG());
         target.classList.add(CLASS_NAMES.SHOWN);
         target.classList.add(CLASS_NAMES.ANIMATIONS.MATCH);
         last.classList.add(CLASS_NAMES.ANIMATIONS.MATCH);
@@ -75,7 +75,7 @@ window.addEventListener("load", () => {
     stats.running = false;
     stats.time = {start: 0, end: 0};
     resetMoves();
-    while (container.lastChild) container.removeChild(container.lastChild);
+    container.clearChildren();
     const {innerWidth, innerHeight} = window;
     if (size.width/size.height > innerWidth/innerHeight) container.parentElement.classList.add(CLASS_NAMES.VERTICAL_LAYOUT);
     else container.parentElement.classList.remove(CLASS_NAMES.VERTICAL_LAYOUT);

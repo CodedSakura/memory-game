@@ -78,7 +78,7 @@ const ID_NAMES = {
   ALERT_CONTAINER: "mem_alert_cont"
 };
 
-const WIN_ANIM_TIMEOUT = 750; // ms
+const FAIL_ANIM_TIMEOUT = 1250; // ms
 const TIME_UPDATE_SPEED = 500; // ms
 
 enum AlertType {
