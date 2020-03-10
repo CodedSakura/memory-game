@@ -11,6 +11,10 @@ declare interface String {
   padStart(targetLength: number, padString?: string)
 }
 
+declare interface Element {
+  clearChildren(): any
+}
+
 interface AlertEvent extends Event {
   readonly detail: {
     type: AlertType,

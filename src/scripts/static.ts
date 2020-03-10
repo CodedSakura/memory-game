@@ -34,6 +34,8 @@ const PAIRS = [
 
 const getDefaultSize = () => ({width: 4, height: 6});
 
+const SVG_NS = "http://www.w3.org/2000/svg";
+
 const CLASS_NAMES = {
   ROW: "__mem_row",
   TILE: "__mem_tile",
@@ -76,7 +78,7 @@ const ID_NAMES = {
   ALERT_CONTAINER: "mem_alert_cont"
 };
 
-const WIN_ANIM_TIMEOUT = 750; // ms
+const FAIL_ANIM_TIMEOUT = 1250; // ms
 const TIME_UPDATE_SPEED = 500; // ms
 
 enum AlertType {

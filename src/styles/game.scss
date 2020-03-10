@@ -56,6 +56,13 @@
       justify-content: center;
       align-items: center;
       cursor: default;
+      overflow: hidden;
+
+      > svg {
+        width: 100%;
+        height: auto;
+        fill: #2196F3;
+      }
     }
     &-back {
       background: #6A1B9A;

@@ -31,6 +31,10 @@ if (!String.prototype.padStart) {
   };
 }
 
+Element.prototype.clearChildren = function () {
+  while (this.firstChild) this.removeChild(this.firstChild);
+};
+
 function findInPairs(item) {
   let out;
   for (let i = 0; i < PAIRS.length; i++) {
