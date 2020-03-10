@@ -34,6 +34,8 @@ const PAIRS = [
 
 const getDefaultSize = () => ({width: 4, height: 6});
 
+const SVG_NS = "http://www.w3.org/2000/svg";
+
 const CLASS_NAMES = {
   ROW: "__mem_row",
   TILE: "__mem_tile",
