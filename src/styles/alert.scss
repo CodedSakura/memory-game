@@ -1,0 +1,64 @@
+.__mem_alert {
+  &-cont {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 350px;
+    overflow: hidden;
+  }
+
+  @mixin coloredAlert($color) {
+    background-color: rgba($color, .4);
+    border: 2px solid rgba($color, .7);
+    box-shadow: 0 0 4px 3px rgba($color, .3);
+  }
+  &-error, &-success, &-warning {
+    width: 90%;
+    position: relative;
+    margin: 10px auto;
+    padding: 4px;
+    border-radius: 4px;
+  }
+  &-error   { @include coloredAlert(#D50000); }
+  &-success { @include coloredAlert(#00C853); }
+  &-warning { @include coloredAlert(#FFEA00); }
+
+  &-head {
+    font-size: 1.3em;
+    font-weight: 500;
+    margin-bottom: .3em;
+  }
+
+  &_anim {
+    &-enter {
+      animation: __MemAnimAlertEnter .4s ease;
+    }
+    &-exit {
+      animation: __MemAnimAlertExit .3s ease;
+      animation-fill-mode: forwards;
+    }
+  }
+}
+
+@keyframes __MemAnimAlertEnter {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes __MemAnimAlertExit {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
