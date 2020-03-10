@@ -14,7 +14,8 @@ class MemoryGame {
 
   constructor(size) {
     if (!size.hasOwnProperty("width") || !size.hasOwnProperty("height")) throw new Error("Size must be an object with properties 'width' and 'height'");
-    if (typeof size.width !== "number" || typeof size.height !== "number") throw new Error("Properties 'width' and 'height' mst be numbers");
+    if (typeof size.width !== "number" || typeof size.height !== "number") throw new Error("Properties 'width' and 'height' must be numbers!");
+    if (!Number.isInteger(size.width) || !Number.isInteger(size.height)) throw new Error("Width and height must be integers!");
     if (size.width <= 0 || size.height <= 0) throw  new Error("Width and height must be positive!");
     if ((size.width * size.height) % 2 === 1) throw new Error("Width and height can't both be odd!");
     if (size.width * size.height / 2 > PAIRS.length) throw new Error("Not enough pairs for this grid size");
