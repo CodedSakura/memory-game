@@ -18,7 +18,6 @@ class MemoryGame {
     if (!Number.isInteger(size.width) || !Number.isInteger(size.height)) throw new Error("Width and height must be integers!");
     if (size.width <= 0 || size.height <= 0) throw  new Error("Width and height must be positive!");
     if ((size.width * size.height) % 2 === 1) throw new Error("Width and height can't both be odd!");
-    if (size.width * size.height / 2 > PAIRS.length) throw new Error("Not enough pairs for this grid size");
     this.size = size;
     this.entries = new TileGenerator(size.width*size.height, 6, 0, {flip: false, rotate: false}).tiles.shuffle();
     this.revealed = new Array(this.entries.length).fill(false);

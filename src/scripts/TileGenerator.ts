@@ -35,7 +35,7 @@ class TileC0 implements Tile {
 
   getSVG(): SVGSVGElement {
     const out = document.createElementNS(SVG_NS, "svg");
-    out.setAttribute("viewBox", `0 0 ${this.size} ${this.size}`);
+    out.setAttribute("viewBox", `-1 -1 ${this.size+2} ${this.size+2}`);
     const path = document.createElementNS(SVG_NS, "path");
     let d = "";
     if (!this.inverted) {

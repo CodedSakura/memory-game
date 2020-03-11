@@ -35,18 +35,6 @@ Element.prototype.clearChildren = function () {
   while (this.firstChild) this.removeChild(this.firstChild);
 };
 
-function findInPairs(item) {
-  let out;
-  for (let i = 0; i < PAIRS.length; i++) {
-    if (PAIRS[i].indexOf(item) > -1) {
-      if (out !== undefined)
-        throw new Error("appears multiple times in pairs");
-      out = i;
-    }
-  }
-  return out;
-}
-
 function msToString(ms: number) {
   let s = ms / 1000;
   let m = s / 60;
