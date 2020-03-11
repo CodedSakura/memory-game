@@ -62,6 +62,9 @@ window.addEventListener("load", () => {
         last.classList.add(CLASS_NAMES.ANIMATIONS.MATCH);
         if (game.won) {
           stats.time.end = Date.now();
+          setTimeout(() => {
+            document.getElementById(ID_NAMES.WIN_BANNER).classList.remove(CLASS_NAMES.WIN_BANNER_HIDDEN);
+          }, WIN_BANNER_TIMEOUT);
         }
         break;
       default:
@@ -79,6 +82,7 @@ window.addEventListener("load", () => {
     const {innerWidth, innerHeight} = window;
     if (size.width/size.height > innerWidth/innerHeight) container.parentElement.classList.add(CLASS_NAMES.VERTICAL_LAYOUT);
     else container.parentElement.classList.remove(CLASS_NAMES.VERTICAL_LAYOUT);
+    document.getElementById(ID_NAMES.WIN_BANNER).classList.add(CLASS_NAMES.WIN_BANNER_HIDDEN);
     const tileSize = Math.min((innerWidth-22)/size.width-6, (innerHeight-22)/size.height-6) << 0;
     for (let y = 0; y < size.height; y++) {
       const row = document.createElement("div");

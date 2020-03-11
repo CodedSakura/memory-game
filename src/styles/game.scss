@@ -2,6 +2,8 @@
   &_outer-cont {
     display: flex;
     flex-direction: row;
+    overflow: hidden;
+
     > * {
       flex: 1 0;
     }
@@ -87,6 +89,21 @@
     }
     &_match {
       animation: __MemAnimMatch .6s .3s ease;
+    }
+  }
+
+  &_win-banner {
+    display: none;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    font-size: 4rem;
+    background-color: #00C853;
+    padding: .25em;
+    border-radius: .25em;
+    &:not(&-hidden) {
+      display: block;
     }
   }
 }

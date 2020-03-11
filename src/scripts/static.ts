@@ -1,4 +1,4 @@
-const getDefaultSize = () => ({width: 4, height: 6});
+const getDefaultSize = () => ({width: 4, height: 4});
 
 const SVG_NS = "http://www.w3.org/2000/svg";
 
@@ -27,7 +27,8 @@ const CLASS_NAMES = {
       EXIT:  "__mem_alert_anim-exit"
     }
   },
-  VERTICAL_LAYOUT: "__mem_vertical-layout"
+  VERTICAL_LAYOUT: "__mem_vertical-layout",
+  WIN_BANNER_HIDDEN: "__mem_win-banner-hidden"
 };
 
 const ID_NAMES = {
@@ -41,10 +42,12 @@ const ID_NAMES = {
     TIME: "mem_time",
     MOVES: "mem_moves"
   },
-  ALERT_CONTAINER: "mem_alert_cont"
+  ALERT_CONTAINER: "mem_alert_cont",
+  WIN_BANNER: "mem_win_banner"
 };
 
 const FAIL_ANIM_TIMEOUT = 1250; // ms
+const WIN_BANNER_TIMEOUT = 1000; // ms
 const TIME_UPDATE_SPEED = 500; // ms
 
 enum AlertType {
