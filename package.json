@@ -9,12 +9,12 @@
     "start": "run-s watch",
     "build": "run-s build:*",
     "serve": "browser-sync start -s \"dist\" -f \"dist\"",
-    "build:assets": "copyfiles -u 1 \"static/**/*.js\\\" \"src/**/*.css\" \"src/**/*.html\" \"src/**/*.{png,jpg,gif}\" dist",
-    "build:scss": "node-sass --source-map true --output-style compact -r static -o dist",
+    "build:assets": "copyfiles -u 1 \"src/**/*.js\" \"src/**/*.css\" \"src/**/*.html\" \"src/**/*.{png,jpg,gif}\" dist",
+    "build:scss": "node-sass --source-map true --output-style compact -r src -o dist",
     "build:tsc": "tsc",
     "watch:tsc": "tsc -w",
-    "watch:scss": "onchange \"static/**/*.scss\" -- run-s build:scss",
-    "watch:assets": "onchange \"static/**/*.js\" \"src/**/*.css\" \"src/**/*.html\" \"src/**/*.{png,jpg,gif}\" -- run-s build:assets",
+    "watch:scss": "onchange \"src/**/*.scss\" -- run-s build:scss",
+    "watch:assets": "onchange \"src/**/*.js\" \"src/**/*.css\" \"src/**/*.html\" \"src/**/*.{png,jpg,gif}\" -- run-s build:assets",
     "watch": "run-p build serve watch:*"
   },
   "devDependencies": {
