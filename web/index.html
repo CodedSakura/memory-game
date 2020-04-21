@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Memory Game</title>
-    <link rel="stylesheet" href="styles/index.css">
-    <link rel="stylesheet" href="styles/game.css">
-    <link rel="stylesheet" href="styles/alert.css">
-    <script src="scripts/static.js"></script>
-    <script src="scripts/helpers.js"></script>
-    <script src="scripts/TileGenerator.js"></script>
-    <script src="scripts/MemGame.js"></script>
-    <script src="scripts/runner.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/game.css' ) }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/alert.css') }}">
+    <script src="{{ url_for('static', filename='scripts/static.js')  }}"></script>
+    <script src="{{ url_for('static', filename='scripts/helpers.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/TileGenerator.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/MemGame.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/runner.js' ) }}"></script>
 </head>
 <body>
 <div class="__mem_outer-cont">
