@@ -26,7 +26,7 @@ class ScoreObj(db.Model):
 
     @staticmethod
     def from_req(req):
-        so = ScoreObj(id=req)
+        so = ScoreObj(name=req)
         return so
 
 
@@ -40,6 +40,7 @@ def score():
     if request.method == "GET":
         return "{}"
     if request.method == "POST":
-        score_obj = ScoreObj.from_req(request)
-        db.session.add(score_obj)
-        db.session.commit()
+        print(request + "")
+        # score_obj = ScoreObj.from_req(request)
+        # db.session.add(score_obj)
+        # db.session.commit()
