@@ -40,7 +40,7 @@ def score():
     if request.method == "GET":
         return "{}"
     if request.method == "POST":
-        print(request + "")
+        print(str(request))
         # score_obj = ScoreObj.from_req(request)
         # db.session.add(score_obj)
         # db.session.commit()
