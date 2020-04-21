@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__, template_folder="./web", static_folder="./static")
+app = Flask(__name__, template_folder="./web", static_folder="./dist")
 app.config["DEBUG"] = True
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
