@@ -15,6 +15,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 
+
 class ScoreObj(db.Model):
     __tablename__ = "score"
 
@@ -25,18 +26,20 @@ class ScoreObj(db.Model):
 
     @staticmethod
     def from_req(req):
-        pass
+        so = ScoreObj(id=req)
+        return so
 
 
 @app.route("/")
 def index():
     return render_template("index.html")
 
+
 @app.route("/API/score", methods=["GET", "POST"])
 def score():
     if request.method == "GET":
         return "{}"
     if request.method == "POST":
-    score_obj = ScoreObj.from_req(request)
-    db.session.add(score_obj)
-    db.session.commit()
+        score_obj = ScoreObj.from_req(request)
+        db.session.add(score_obj)
+        db.session.commit()
