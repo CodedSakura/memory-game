@@ -23,7 +23,8 @@ class ScoreObj(db.Model):
     score = db.Column(db.Integer)
     size = db.Column(db.Integer)
 
-    static def from_req(req):
+    @staticmethod
+    def from_req(req):
         pass
 
 
