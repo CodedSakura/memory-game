@@ -22,3 +22,9 @@ interface AlertEvent extends Event {
     head?: string
   }
 }
+
+interface Score {
+  name: string
+  score: number
+  time: number
+}

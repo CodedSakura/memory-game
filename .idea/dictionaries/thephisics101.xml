@@ -2,6 +2,8 @@
   <dictionary name="thephisics101">
     <words>
       <w>elems</w>
+      <w>highscore</w>
+      <w>highscores</w>
       <w>unmatch</w>
     </words>
   </dictionary>

@@ -1,4 +1,15 @@
-window.addEventListener("load", () => {
+window.addEventListener("load", async () => {
+  const ScoreAPI = {
+    getScore: async (size): Promise<Score[]> => await fetch(`/API/score/${size}`).then(r => r.json()),
+    postScore: (name, score, size) => {
+      fetch(`/API/score/${size}`, {
+        method: "POST",
+        body: JSON.stringify({name: name, score: score}),
+        headers: {"content-type": "application/json"}
+      }).catch(e => {throw e});
+    }
+  };
+
   const container = document.getElementById(ID_NAMES.MAIN);
   const stats = {
     time: {
@@ -64,6 +75,10 @@ window.addEventListener("load", () => {
           stats.time.end = Date.now();
           setTimeout(() => {
             document.getElementById(ID_NAMES.WIN_BANNER).classList.remove(CLASS_NAMES.WIN_BANNER_HIDDEN);
+            const name = prompt("Your name:")
+            if (name) {
+              ScoreAPI.postScore(name, stats.moves, stats.time.end-stats.time.start);
+            }
           }, WIN_BANNER_TIMEOUT);
         }
         break;
@@ -104,6 +119,8 @@ window.addEventListener("load", () => {
       }
       container.appendChild(row);
     }
+    document.getElementById(ID_NAMES.STATS.SIZE).innerText = `${game.entries.length}`;
+    updateScoreboard();
   }
 
   function updateTime() {
@@ -117,6 +134,20 @@ window.addEventListener("load", () => {
   function resetMoves() {
     stats.moves = 0;
     stats.elems.moves.innerText = `${stats.moves}`;
+  }
+
+  async function updateScoreboard() {
+    const scores = await ScoreAPI.getScore(game.entries.length);
+    document.getElementById(ID_NAMES.STATS.HIGHSCORE.SIZE).innerText = `${game.entries.length}`;
+    console.log(scores);
+    const hsE = document.getElementById(ID_NAMES.STATS.HIGHSCORE.CONT) as HTMLDivElement;
+    hsE.clearChildren();
+    for (const s of scores) {
+      const {score, name} = s;
+      const divE = document.createElement("div");
+      divE.appendChild(document.createTextNode(`${name}: ${score}`));
+      hsE.appendChild(divE);
+    }
   }
 
   generateField(getDefaultSize());

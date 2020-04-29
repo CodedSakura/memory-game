@@ -40,7 +40,12 @@ const ID_NAMES = {
   },
   STATS: {
     TIME: "mem_time",
-    MOVES: "mem_moves"
+    MOVES: "mem_moves",
+    SIZE: "mem_size",
+    HIGHSCORE: {
+      SIZE: "mem_hs_size",
+      CONT: "mem_highscores"
+    }
   },
   ALERT_CONTAINER: "mem_alert_cont",
   WIN_BANNER: "mem_win_banner"
