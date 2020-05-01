@@ -1,10 +1,10 @@
 window.addEventListener("load", async () => {
   const ScoreAPI = {
     getScore: async (size): Promise<Score[]> => await fetch(`/API/score/${size}`).then(r => r.json()),
-    postScore: (name, score, size) => {
+    postScore: (name, score, time, size) => {
       fetch(`/API/score/${size}`, {
         method: "POST",
-        body: JSON.stringify({name: name, score: score}),
+        body: JSON.stringify({name: name, score: score, time: time}),
         headers: {"content-type": "application/json"}
       }).catch(e => {throw e});
     }
@@ -77,7 +77,7 @@ window.addEventListener("load", async () => {
             document.getElementById(ID_NAMES.WIN_BANNER).classList.remove(CLASS_NAMES.WIN_BANNER_HIDDEN);
             const name = prompt("Your name:")
             if (name) {
-              ScoreAPI.postScore(name, stats.moves, stats.time.end-stats.time.start);
+              ScoreAPI.postScore(name, stats.moves, stats.time.end-stats.time.start, game.entries.length);
             }
           }, WIN_BANNER_TIMEOUT);
         }
