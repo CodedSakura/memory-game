@@ -1,12 +1,12 @@
-window.addEventListener("load", async () => {
+window.addEventListener("load", () => {
   const ScoreAPI = {
     getScore: async (size): Promise<Score[]> => await fetch(`/API/score/${size}`).then(r => r.json()),
-    postScore: (name, score, time, size) => {
+    postScore: (name, score, time, size, cb) => {
       fetch(`/API/score/${size}`, {
         method: "POST",
         body: JSON.stringify({name: name, score: score, time: time}),
         headers: {"content-type": "application/json"}
-      }).catch(e => {throw e});
+      }).catch(e => {throw e}).then(() => cb && cb());
     }
   };
 
@@ -75,10 +75,10 @@ window.addEventListener("load", async () => {
           stats.time.end = Date.now();
           setTimeout(() => {
             document.getElementById(ID_NAMES.WIN_BANNER).classList.remove(CLASS_NAMES.WIN_BANNER_HIDDEN);
-            const name = prompt("Your name:")
-            if (name) {
-              ScoreAPI.postScore(name, stats.moves, stats.time.end-stats.time.start, game.entries.length);
-            }
+            setTimeout(() => {
+              const name = prompt("Your name:");
+              if (name) ScoreAPI.postScore(name, stats.moves, stats.time.end - stats.time.start, game.entries.length, updateScoreboard);
+            });
           }, WIN_BANNER_TIMEOUT);
         }
         break;
@@ -120,7 +120,7 @@ window.addEventListener("load", async () => {
       container.appendChild(row);
     }
     document.getElementById(ID_NAMES.STATS.SIZE).innerText = `${game.entries.length}`;
-    updateScoreboard();
+    updateScoreboard().then(_ => {});
   }
 
   function updateTime() {
@@ -136,18 +136,19 @@ window.addEventListener("load", async () => {
     stats.elems.moves.innerText = `${stats.moves}`;
   }
 
-  async function updateScoreboard() {
+  async function updateScoreboard(alert?: boolean) {
     const scores = await ScoreAPI.getScore(game.entries.length);
     document.getElementById(ID_NAMES.STATS.HIGHSCORE.SIZE).innerText = `${game.entries.length}`;
     console.log(scores);
     const hsE = document.getElementById(ID_NAMES.STATS.HIGHSCORE.CONT) as HTMLDivElement;
     hsE.clearChildren();
     for (const s of scores) {
-      const {score, name} = s;
+      const {score, name, time} = s;
       const divE = document.createElement("div");
-      divE.appendChild(document.createTextNode(`${name}: ${score}`));
+      divE.appendChild(document.createTextNode(`${name}: ${score} (${msToString(time)})`));
       hsE.appendChild(divE);
     }
+    if (alert) document.dispatchEvent(new CustomEvent(ALERT_EVENT, {detail: {type: AlertType.SUCCESS, message: "Scoreboard refreshed"}}));
   }
 
   generateField(getDefaultSize());
@@ -163,6 +164,8 @@ window.addEventListener("load", async () => {
       document.dispatchEvent(new CustomEvent(ALERT_EVENT, {detail: {type: AlertType.ERROR, message: e.message}}));
     }
   });
+
+  document.getElementById(ID_NAMES.STATS.HIGHSCORE.REFRESH).addEventListener("click", () => updateScoreboard(true));
 });
 
 document.addEventListener(ALERT_EVENT, ({detail: {type, message, head}}: AlertEvent) => {

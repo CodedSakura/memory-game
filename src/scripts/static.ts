@@ -44,7 +44,8 @@ const ID_NAMES = {
     SIZE: "mem_size",
     HIGHSCORE: {
       SIZE: "mem_hs_size",
-      CONT: "mem_highscores"
+      CONT: "mem_highscores",
+      REFRESH: "mem_refresh"
     }
   },
   ALERT_CONTAINER: "mem_alert_cont",
