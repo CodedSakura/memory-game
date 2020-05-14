@@ -166,6 +166,12 @@ window.addEventListener("load", () => {
   });
 
   document.getElementById(ID_NAMES.STATS.HIGHSCORE.REFRESH).addEventListener("click", () => updateScoreboard(true));
+
+  (async () => {
+    const latestCommit = (await fetch("https://api.github.com/repos/ThePhisics101/memory-game/commits/master").then(r => r.json())).sha.substr(0, 7);
+    document.getElementById(ID_NAMES.STATS.COMMIT).innerText = latestCommit;
+    console.log(latestCommit);
+  })()
 });
 
 document.addEventListener(ALERT_EVENT, ({detail: {type, message, head}}: AlertEvent) => {

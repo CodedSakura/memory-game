@@ -46,7 +46,8 @@ const ID_NAMES = {
       SIZE: "mem_hs_size",
       CONT: "mem_highscores",
       REFRESH: "mem_refresh"
-    }
+    },
+    COMMIT: "mem_commit"
   },
   ALERT_CONTAINER: "mem_alert_cont",
   WIN_BANNER: "mem_win_banner"

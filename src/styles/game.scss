@@ -14,6 +14,25 @@
         flex-direction: row;
       }
     }
+
+    a {
+      color: #2196F3;
+      &:hover {
+        color: #2979FF;
+      }
+      &:active {
+        color: #90CAF9;
+      }
+      &:visited {
+        color: #7E57C2;
+        &:hover {
+          color: #673AB7;
+        }
+        &:active {
+          color: #651FFF;
+        }
+      }
+    }
   }
 
   &_option-panel {}
@@ -80,6 +99,10 @@
       transform: rotateY(.5turn);
       cursor: pointer;
     }
+  }
+
+  &_stats-commit {
+    flex: 0 0 0;
   }
 
   &_hidden {
